@@ -1,0 +1,317 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\wiemh\Downloads\Proj.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 5 Jun 2026, 09:02:08
+
+{com}. import delimited C:\Users\wiemh\Downloads\1-CS-data-CSV.csv, delimiter(";") varnames(1) 
+{res}{text}(39 vars, 3,496 obs)
+
+{com}. sum sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+sprben_mat~b {c |}{res}      3,496    131.6897    168.4561         .1     2197.7
+{txt}{space 4}levrage1 {c |}{res}      3,496    .7049607    .1934823   .0008244   2.960955
+{txt}profitabil~y {c |}{res}      3,496    .0492896    .0683607  -.8656615   .3967641
+{txt}sprat_nume~c {c |}{res}      3,496    14.91362    3.320889          3         21
+{txt}{space 5}effsale {c |}{res}      3,408    77.99363    19.51773       13.4       96.1
+{txt}{hline 13}{c +}{hline 57}
+maturity_y~s {c |}{res}      3,496    8.342105    6.479258          1         32
+
+{com}. 
+. summarize sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years
+
+{txt}    Variable {c |}        Obs        Mean    Std. Dev.       Min        Max
+{hline 13}{c +}{hline 57}
+sprben_mat~b {c |}{res}      3,496    131.6897    168.4561         .1     2197.7
+{txt}{space 4}levrage1 {c |}{res}      3,496    .7049607    .1934823   .0008244   2.960955
+{txt}profitabil~y {c |}{res}      3,496    .0492896    .0683607  -.8656615   .3967641
+{txt}sprat_nume~c {c |}{res}      3,496    14.91362    3.320889          3         21
+{txt}{space 5}effsale {c |}{res}      3,408    77.99363    19.51773       13.4       96.1
+{txt}{hline 13}{c +}{hline 57}
+maturity_y~s {c |}{res}      3,496    8.342105    6.479258          1         32
+
+{com}. 
+. histogram sprben_matlab, percent normal title("Distribution of Credit Spread")
+{txt}(bin={res}35{txt}, start={res}.1{txt}, width={res}62.78857{txt})
+{res}
+{com}. 
+. twoway (scatter sprben_matlab levrage1)(lfit sprben_matlab levrage1),title("Credit Spread and Leverage")
+{res}
+{com}. 
+. twoway (scatter sprben_matlab sprat_numeric)(lfit sprben_matlab sprat_numeric), title("Credit Spread and Credit Rating")
+{res}
+{com}. 
+. twoway (scatter sprben_matlab profitability)(lfit sprben_matlab profitability),title("Credit Spread and Profitability")
+{res}
+{com}. 
+. 
+. 
+. pwcorr sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years, sig
+
+             {txt}{c |} sprben~b levrage1 profit~y sprat_~c  effsale maturi~s
+{hline 13}{c +}{hline 54}
+sprben_mat~b {c |} {res}  1.0000 
+             {txt}{c |}
+             {c |}
+    levrage1 {c |} {res}  0.0198   1.0000 
+             {txt}{c |}{res}   0.2423
+             {txt}{c |}
+profitabil~y {c |} {res} -0.1672  -0.1595   1.0000 
+             {txt}{c |}{res}   0.0000   0.0000
+             {txt}{c |}
+sprat_nume~c {c |} {res} -0.6789  -0.0123   0.1649   1.0000 
+             {txt}{c |}{res}   0.0000   0.4684   0.0000
+             {txt}{c |}
+     effsale {c |} {res} -0.1177  -0.1069   0.1302   0.1171   1.0000 
+             {txt}{c |}{res}   0.0000   0.0000   0.0000   0.0000
+             {txt}{c |}
+maturity_y~s {c |} {res}  0.0699  -0.1331   0.0893  -0.0604   0.1685   1.0000 
+             {txt}{c |}{res}   0.0000   0.0000   0.0000   0.0004   0.0000
+             {txt}{c |}
+
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,408
+{txt}{hline 13}{c +}{hline 34}   F(5, 3402)      = {res}   588.45
+{txt}       Model {c |} {res} 44577430.7         5  8915486.15   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 51542703.7     3,402  15150.7066   {txt}R-squared       ={res}    0.4638
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4630
+{txt}       Total {c |} {res} 96120134.5     3,407  28212.5431   {txt}Root MSE        =   {res} 123.09
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 4.877455{col 28}{space 2}  11.1515{col 39}{space 1}    0.44{col 48}{space 3}0.662{col 56}{space 4}-16.98686{col 69}{space 3} 26.74178
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-145.0164{col 28}{space 2} 31.91609{col 39}{space 1}   -4.54{col 48}{space 3}0.000{col 56}{space 4} -207.593{col 69}{space 3}-82.43972
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-33.40216{col 28}{space 2} .6537762{col 39}{space 1}  -51.09{col 48}{space 3}0.000{col 56}{space 4}-34.68399{col 69}{space 3}-32.12033
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2} -.342538{col 28}{space 2} .1113356{col 39}{space 1}   -3.08{col 48}{space 3}0.002{col 56}{space 4}-.5608295{col 69}{space 3}-.1242465
+{txt}maturity_years {c |}{col 16}{res}{space 2} 1.146049{col 28}{space 2} .3333295{col 39}{space 1}    3.44{col 48}{space 3}0.001{col 56}{space 4} .4925024{col 69}{space 3} 1.799595
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 650.6624{col 28}{space 2} 15.38944{col 39}{space 1}   42.28{col 48}{space 3}0.000{col 56}{space 4} 620.4889{col 69}{space 3} 680.8359
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. vif
+
+{txt}    Variable {c |}       VIF       1/VIF  
+{hline 13}{c +}{hline 22}
+profitabil~y {c |} {res}     1.07    0.934205
+{txt}{space 5}effsale {c |} {res}     1.06    0.941746
+{txt}maturity_y~s {c |} {res}     1.06    0.945650
+{txt}sprat_nume~c {c |} {res}     1.05    0.949844
+{txt}{space 4}levrage1 {c |} {res}     1.04    0.959041
+{txt}{hline 13}{c +}{hline 22}
+    Mean VIF {c |} {res}     1.06
+
+{com}. 
+. estat hettest
+
+{txt}Breusch-Pagan / Cook-Weisberg test for heteroskedasticity 
+         Ho: Constant variance
+{p 9 20}Variables: fitted values of sprben_matlab
+
+{col 10}chi2({res}1{txt}){col 23}={res}  1831.58
+{txt}{col 10}Prob > chi2{col 23}={res}   0.0000
+
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years, robust
+
+{txt}Linear regression                               Number of obs     = {res}     3,408
+                                                {txt}F(5, 3402)        =  {res}   259.86
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.4638
+                                                {txt}Root MSE          =    {res} 123.09
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 4.877455{col 28}{space 2} 10.72657{col 39}{space 1}    0.45{col 48}{space 3}0.649{col 56}{space 4}-16.15373{col 69}{space 3} 25.90864
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-145.0164{col 28}{space 2} 64.07613{col 39}{space 1}   -2.26{col 48}{space 3}0.024{col 56}{space 4} -270.648{col 69}{space 3}-19.38478
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-33.40216{col 28}{space 2}  1.07494{col 39}{space 1}  -31.07{col 48}{space 3}0.000{col 56}{space 4}-35.50975{col 69}{space 3}-31.29456
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2} -.342538{col 28}{space 2} .1469905{col 39}{space 1}   -2.33{col 48}{space 3}0.020{col 56}{space 4}-.6307366{col 69}{space 3}-.0543393
+{txt}maturity_years {c |}{col 16}{res}{space 2} 1.146049{col 28}{space 2}  .265247{col 39}{space 1}    4.32{col 48}{space 3}0.000{col 56}{space 4} .6259892{col 69}{space 3} 1.666108
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 650.6624{col 28}{space 2} 18.19392{col 39}{space 1}   35.76{col 48}{space 3}0.000{col 56}{space 4} 614.9903{col 69}{space 3} 686.3345
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. reg sprben_matlab levrage2 profitability sprat_numeric effsale maturity_years
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,408
+{txt}{hline 13}{c +}{hline 34}   F(5, 3402)      = {res}   592.38
+{txt}       Model {c |} {res} 44736383.4         5  8947276.69   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res}   51383751     3,402  15103.9833   {txt}R-squared       ={res}    0.4654
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4646
+{txt}       Total {c |} {res} 96120134.5     3,407  28212.5431   {txt}Root MSE        =   {res}  122.9
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage2 {c |}{col 16}{res}{space 2} 46.00691{col 28}{space 2} 14.05436{col 39}{space 1}    3.27{col 48}{space 3}0.001{col 56}{space 4} 18.45107{col 69}{space 3} 73.56275
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-132.4216{col 28}{space 2} 31.92194{col 39}{space 1}   -4.15{col 48}{space 3}0.000{col 56}{space 4}-195.0097{col 69}{space 3}-69.83347
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-33.14211{col 28}{space 2} .6576048{col 39}{space 1}  -50.40{col 48}{space 3}0.000{col 56}{space 4}-34.43145{col 69}{space 3}-31.85277
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2}-.4391899{col 28}{space 2} .1144803{col 39}{space 1}   -3.84{col 48}{space 3}0.000{col 56}{space 4}-.6636471{col 69}{space 3}-.2147327
+{txt}maturity_years {c |}{col 16}{res}{space 2} .9943462{col 28}{space 2} .3333697{col 39}{space 1}    2.98{col 48}{space 3}0.003{col 56}{space 4}  .340721{col 69}{space 3} 1.647971
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 647.2915{col 28}{space 2}  12.6418{col 39}{space 1}   51.20{col 48}{space 3}0.000{col 56}{space 4} 622.5052{col 69}{space 3} 672.0778
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years ln_ta_usd
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,408
+{txt}{hline 13}{c +}{hline 34}   F(6, 3401)      = {res}   501.52
+{txt}       Model {c |} {res} 45122124.2         6  7520354.04   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 50998010.2     3,401  14995.0045   {txt}R-squared       ={res}    0.4694
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4685
+{txt}       Total {c |} {res} 96120134.5     3,407  28212.5431   {txt}Root MSE        =   {res} 122.45
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 19.18134{col 28}{space 2} 11.34507{col 39}{space 1}    1.69{col 48}{space 3}0.091{col 56}{space 4}-3.062491{col 69}{space 3} 41.42518
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-205.1676{col 28}{space 2} 33.28324{col 39}{space 1}   -6.16{col 48}{space 3}0.000{col 56}{space 4}-270.4247{col 69}{space 3}-139.9104
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-30.32611{col 28}{space 2} .8267493{col 39}{space 1}  -36.68{col 48}{space 3}0.000{col 56}{space 4}-31.94709{col 69}{space 3}-28.70514
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2}-.5595493{col 28}{space 2} .1164676{col 39}{space 1}   -4.80{col 48}{space 3}0.000{col 56}{space 4}-.7879027{col 69}{space 3}-.3311958
+{txt}maturity_years {c |}{col 16}{res}{space 2} .8439457{col 28}{space 2} .3353792{col 39}{space 1}    2.52{col 48}{space 3}0.012{col 56}{space 4} .1863805{col 69}{space 3} 1.501511
+{txt}{space 5}ln_ta_usd {c |}{col 16}{res}{space 2}-10.46319{col 28}{space 2} 1.736046{col 39}{space 1}   -6.03{col 48}{space 3}0.000{col 56}{space 4}-13.86699{col 69}{space 3} -7.05939
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 722.1389{col 28}{space 2} 19.36608{col 39}{space 1}   37.29{col 48}{space 3}0.000{col 56}{space 4} 684.1686{col 69}{space 3} 760.1093
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years civil
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,408
+{txt}{hline 13}{c +}{hline 34}   F(6, 3401)      = {res}   490.81
+{txt}       Model {c |} {res} 44605744.7         6  7434290.78   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 51514389.8     3,401  15146.8362   {txt}R-squared       ={res}    0.4641
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4631
+{txt}       Total {c |} {res} 96120134.5     3,407  28212.5431   {txt}Root MSE        =   {res} 123.07
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 5.579206{col 28}{space 2} 11.16188{col 39}{space 1}    0.50{col 48}{space 3}0.617{col 56}{space 4}-16.30547{col 69}{space 3} 27.46389
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-146.5912{col 28}{space 2}  31.9328{col 39}{space 1}   -4.59{col 48}{space 3}0.000{col 56}{space 4}-209.2006{col 69}{space 3}-83.98175
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-33.35697{col 28}{space 2} .6545276{col 39}{space 1}  -50.96{col 48}{space 3}0.000{col 56}{space 4}-34.64028{col 69}{space 3}-32.07367
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2}-.5275076{col 28}{space 2} .1752012{col 39}{space 1}   -3.01{col 48}{space 3}0.003{col 56}{space 4}-.8710179{col 69}{space 3}-.1839973
+{txt}maturity_years {c |}{col 16}{res}{space 2} 1.096432{col 28}{space 2} .3352568{col 39}{space 1}    3.27{col 48}{space 3}0.001{col 56}{space 4} .4391072{col 69}{space 3} 1.753758
+{txt}{space 9}civil {c |}{col 16}{res}{space 2}-9.440915{col 28}{space 2} 6.905181{col 39}{space 1}   -1.37{col 48}{space 3}0.172{col 56}{space 4}-22.97964{col 69}{space 3} 4.097809
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 668.5832{col 28}{space 2} 20.21336{col 39}{space 1}   33.08{col 48}{space 3}0.000{col 56}{space 4} 628.9516{col 69}{space 3} 708.2148
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years callable
+
+{txt}      Source {c |}       SS           df       MS      Number of obs   ={res}     3,322
+{txt}{hline 13}{c +}{hline 34}   F(6, 3315)      = {res}   507.63
+{txt}       Model {c |} {res} 45383161.9         6  7563860.31   {txt}Prob > F        ={res}    0.0000
+{txt}    Residual {c |} {res} 49394960.4     3,315  14900.4405   {txt}R-squared       ={res}    0.4788
+{txt}{hline 13}{c +}{hline 34}   Adj R-squared   ={res}    0.4779
+{txt}       Total {c |} {res} 94778122.3     3,321  28539.0311   {txt}Root MSE        =   {res} 122.07
+
+{txt}{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 4.539911{col 28}{space 2} 11.22872{col 39}{space 1}    0.40{col 48}{space 3}0.686{col 56}{space 4}-17.47602{col 69}{space 3} 26.55584
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-134.1693{col 28}{space 2}  32.0981{col 39}{space 1}   -4.18{col 48}{space 3}0.000{col 56}{space 4}-197.1034{col 69}{space 3}-71.23524
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-30.95228{col 28}{space 2} .7321477{col 39}{space 1}  -42.28{col 48}{space 3}0.000{col 56}{space 4}-32.38779{col 69}{space 3}-29.51678
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2}-.4933797{col 28}{space 2} .1136729{col 39}{space 1}   -4.34{col 48}{space 3}0.000{col 56}{space 4}-.7162558{col 69}{space 3}-.2705035
+{txt}maturity_years {c |}{col 16}{res}{space 2} .1925556{col 28}{space 2} .3464112{col 39}{space 1}    0.56{col 48}{space 3}0.578{col 56}{space 4}-.4866459{col 69}{space 3}  .871757
+{txt}{space 6}callable {c |}{col 16}{res}{space 2} 54.74937{col 28}{space 2} 6.312447{col 39}{space 1}    8.67{col 48}{space 3}0.000{col 56}{space 4} 42.37268{col 69}{space 3} 67.12605
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 623.5431{col 28}{space 2}  16.0218{col 39}{space 1}   38.92{col 48}{space 3}0.000{col 56}{space 4} 592.1295{col 69}{space 3} 654.9567
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. encode ultprnat, gen(country_id)
+
+. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years, vce(cluster country_id)
+
+{txt}Linear regression                               Number of obs     = {res}     3,408
+                                                {txt}F(5, 33)          =  {res}    61.01
+                                                {txt}Prob > F          = {res}    0.0000
+                                                {txt}R-squared         = {res}    0.4638
+                                                {txt}Root MSE          =    {res} 123.09
+
+{txt}{ralign 80:(Std. Err. adjusted for {res:34} clusters in country_id)}
+{hline 15}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 16}{c |}{col 28}    Robust
+{col 1} sprben_matlab{col 16}{c |}      Coef.{col 28}   Std. Err.{col 40}      t{col 48}   P>|t|{col 56}     [95% Con{col 69}f. Interval]
+{hline 15}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 6}levrage1 {c |}{col 16}{res}{space 2} 4.877455{col 28}{space 2} 20.40933{col 39}{space 1}    0.24{col 48}{space 3}0.813{col 56}{space 4}-36.64565{col 69}{space 3} 46.40056
+{txt}{space 1}profitability {c |}{col 16}{res}{space 2}-145.0164{col 28}{space 2} 130.1249{col 39}{space 1}   -1.11{col 48}{space 3}0.273{col 56}{space 4}-409.7576{col 69}{space 3} 119.7248
+{txt}{space 1}sprat_numeric {c |}{col 16}{res}{space 2}-33.40216{col 28}{space 2} 3.257989{col 39}{space 1}  -10.25{col 48}{space 3}0.000{col 56}{space 4}-40.03059{col 69}{space 3}-26.77373
+{txt}{space 7}effsale {c |}{col 16}{res}{space 2} -.342538{col 28}{space 2} .3909981{col 39}{space 1}   -0.88{col 48}{space 3}0.387{col 56}{space 4} -1.13803{col 69}{space 3} .4529535
+{txt}maturity_years {c |}{col 16}{res}{space 2} 1.146049{col 28}{space 2} .8985924{col 39}{space 1}    1.28{col 48}{space 3}0.211{col 56}{space 4}-.6821513{col 69}{space 3} 2.974249
+{txt}{space 9}_cons {c |}{col 16}{res}{space 2} 650.6624{col 28}{space 2} 51.24793{col 39}{space 1}   12.70{col 48}{space 3}0.000{col 56}{space 4} 546.3977{col 69}{space 3} 754.9271
+{txt}{hline 15}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. 
+. reg sprben_matlab levrage1 profitability sprat_numeric effsale maturity_years i.country_id, robust
+{p 0 6 2}{txt}note: 39.country_id omitted because of collinearity{p_end}
+
+Linear regression                               Number of obs     = {res}     3,408
+                                                {txt}{help j_robustsingular:F(35, 3370) }      =  {res}        .
+                                                {txt}Prob > F          = {res}         .
+                                                {txt}R-squared         = {res}    0.5007
+                                                {txt}Root MSE          =    {res} 119.34
+
+{txt}{hline 16}{c TT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{col 17}{c |}{col 29}    Robust
+{col 1}  sprben_matlab{col 17}{c |}      Coef.{col 29}   Std. Err.{col 41}      t{col 49}   P>|t|{col 57}     [95% Con{col 70}f. Interval]
+{hline 16}{c +}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{space 7}levrage1 {c |}{col 17}{res}{space 2} 25.81343{col 29}{space 2} 11.72043{col 40}{space 1}    2.20{col 49}{space 3}0.028{col 57}{space 4} 2.833558{col 70}{space 3} 48.79331
+{txt}{space 2}profitability {c |}{col 17}{res}{space 2}-226.2875{col 29}{space 2} 73.42315{col 40}{space 1}   -3.08{col 49}{space 3}0.002{col 57}{space 4}-370.2459{col 70}{space 3}-82.32904
+{txt}{space 2}sprat_numeric {c |}{col 17}{res}{space 2}-30.46545{col 29}{space 2} 1.168539{col 40}{space 1}  -26.07{col 49}{space 3}0.000{col 57}{space 4}-32.75656{col 70}{space 3}-28.17433
+{txt}{space 8}effsale {c |}{col 17}{res}{space 2}-2.330921{col 29}{space 2} 1.101491{col 40}{space 1}   -2.12{col 49}{space 3}0.034{col 57}{space 4}-4.490579{col 70}{space 3}-.1712619
+{txt}{space 1}maturity_years {c |}{col 17}{res}{space 2} .7091103{col 29}{space 2} .2852321{col 40}{space 1}    2.49{col 49}{space 3}0.013{col 57}{space 4} .1498648{col 70}{space 3} 1.268356
+{txt}{space 15} {c |}
+{space 5}country_id {c |}
+{space 5}Australia  {c |}{col 17}{res}{space 2}-4.942397{col 29}{space 2} 9.737137{col 40}{space 1}   -0.51{col 49}{space 3}0.612{col 57}{space 4}-24.03369{col 70}{space 3}  14.1489
+{txt}{space 7}Austria  {c |}{col 17}{res}{space 2}-126.0911{col 29}{space 2} 14.06978{col 40}{space 1}   -8.96{col 49}{space 3}0.000{col 57}{space 4}-153.6772{col 70}{space 3}-98.50487
+{txt}{space 7}Belgium  {c |}{col 17}{res}{space 2}-14.36919{col 29}{space 2} 10.90331{col 40}{space 1}   -1.32{col 49}{space 3}0.188{col 57}{space 4}-35.74697{col 70}{space 3} 7.008594
+{txt}{space 8}Brazil  {c |}{col 17}{res}{space 2} 49.04009{col 29}{space 2} 87.62688{col 40}{space 1}    0.56{col 49}{space 3}0.576{col 57}{space 4}-122.7671{col 70}{space 3} 220.8473
+{txt}{space 8}Canada  {c |}{col 17}{res}{space 2} 31.99339{col 29}{space 2} 12.72756{col 40}{space 1}    2.51{col 49}{space 3}0.012{col 57}{space 4} 7.038866{col 70}{space 3} 56.94791
+{txt}{space 9}Chile  {c |}{col 17}{res}{space 2}-78.21432{col 29}{space 2} 58.71523{col 40}{space 1}   -1.33{col 49}{space 3}0.183{col 57}{space 4}-193.3354{col 70}{space 3} 36.90677
+{txt}{space 9}China  {c |}{col 17}{res}{space 2}-21.49927{col 29}{space 2} 46.00628{col 40}{space 1}   -0.47{col 49}{space 3}0.640{col 57}{space 4}-111.7023{col 70}{space 3} 68.70377
+{txt}{space 7}Denmark  {c |}{col 17}{res}{space 2}-33.20217{col 29}{space 2} 26.00498{col 40}{space 1}   -1.28{col 49}{space 3}0.202{col 57}{space 4}-84.18931{col 70}{space 3} 17.78497
+{txt}{space 7}Finland  {c |}{col 17}{res}{space 2}-3.683013{col 29}{space 2} 50.04065{col 40}{space 1}   -0.07{col 49}{space 3}0.941{col 57}{space 4}-101.7961{col 70}{space 3} 94.43009
+{txt}{space 8}France  {c |}{col 17}{res}{space 2}-89.05677{col 29}{space 2} 35.50098{col 40}{space 1}   -2.51{col 49}{space 3}0.012{col 57}{space 4}-158.6624{col 70}{space 3}-19.45114
+{txt}{space 7}Germany  {c |}{col 17}{res}{space 2}-67.42644{col 29}{space 2} 32.54115{col 40}{space 1}   -2.07{col 49}{space 3}0.038{col 57}{space 4}-131.2288{col 70}{space 3}-3.624042
+{txt}{space 8}Greece  {c |}{col 17}{res}{space 2} 29.11769{col 29}{space 2} 56.23932{col 40}{space 1}    0.52{col 49}{space 3}0.605{col 57}{space 4}-81.14896{col 70}{space 3} 139.3843
+{txt}{space 5}Hong Kong  {c |}{col 17}{res}{space 2} 69.19485{col 29}{space 2}  16.1824{col 40}{space 1}    4.28{col 49}{space 3}0.000{col 57}{space 4} 37.46653{col 70}{space 3} 100.9232
+{txt}{space 7}Hungary  {c |}{col 17}{res}{space 2}-143.3404{col 29}{space 2} 42.88296{col 40}{space 1}   -3.34{col 49}{space 3}0.001{col 57}{space 4}-227.4196{col 70}{space 3}-59.26112
+{txt}{space 5}Indonesia  {c |}{col 17}{res}{space 2}-11.36959{col 29}{space 2} 92.84107{col 40}{space 1}   -0.12{col 49}{space 3}0.903{col 57}{space 4}-193.4001{col 70}{space 3} 170.6609
+{txt}{space 9}Italy  {c |}{col 17}{res}{space 2}-118.4805{col 29}{space 2} 45.50522{col 40}{space 1}   -2.60{col 49}{space 3}0.009{col 57}{space 4}-207.7011{col 70}{space 3}-29.25986
+{txt}{space 9}Japan  {c |}{col 17}{res}{space 2} 7.329751{col 29}{space 2} 12.63763{col 40}{space 1}    0.58{col 49}{space 3}0.562{col 57}{space 4}-17.44845{col 70}{space 3} 32.10795
+{txt}{space 6}Malaysia  {c |}{col 17}{res}{space 2}-52.45663{col 29}{space 2} 61.62556{col 40}{space 1}   -0.85{col 49}{space 3}0.395{col 57}{space 4}-173.2839{col 70}{space 3} 68.37065
+{txt}{space 8}Mexico  {c |}{col 17}{res}{space 2} 79.04106{col 29}{space 2} 26.75925{col 40}{space 1}    2.95{col 49}{space 3}0.003{col 57}{space 4} 26.57504{col 70}{space 3} 131.5071
+{txt}{space 3}Netherlands  {c |}{col 17}{res}{space 2}  92.8349{col 29}{space 2} 40.41468{col 40}{space 1}    2.30{col 49}{space 3}0.022{col 57}{space 4} 13.59512{col 70}{space 3} 172.0747
+{txt}{space 3}New Zealand  {c |}{col 17}{res}{space 2} 10.71457{col 29}{space 2} 17.27277{col 40}{space 1}    0.62{col 49}{space 3}0.535{col 57}{space 4}-23.15161{col 70}{space 3} 44.58075
+{txt}{space 8}Norway  {c |}{col 17}{res}{space 2} 96.71136{col 29}{space 2} 30.22202{col 40}{space 1}    3.20{col 49}{space 3}0.001{col 57}{space 4}   37.456{col 70}{space 3} 155.9667
+{txt}{space 3}Philippines  {c |}{col 17}{res}{space 2}-47.33871{col 29}{space 2} 85.90825{col 40}{space 1}   -0.55{col 49}{space 3}0.582{col 57}{space 4}-215.7763{col 70}{space 3} 121.0989
+{txt}{space 6}Portugal  {c |}{col 17}{res}{space 2}-47.48806{col 29}{space 2} 20.14599{col 40}{space 1}   -2.36{col 49}{space 3}0.018{col 57}{space 4}-86.98766{col 70}{space 3}-7.988457
+{txt}{space 5}Singapore  {c |}{col 17}{res}{space 2} 25.95522{col 29}{space 2} 40.61554{col 40}{space 1}    0.64{col 49}{space 3}0.523{col 57}{space 4}-53.67836{col 70}{space 3} 105.5888
+{txt}{space 2}South Africa  {c |}{col 17}{res}{space 2} 33.06131{col 29}{space 2} 132.9933{col 40}{space 1}    0.25{col 49}{space 3}0.804{col 57}{space 4}-227.6944{col 70}{space 3}  293.817
+{txt}{space 9}Spain  {c |}{col 17}{res}{space 2}-4.783911{col 29}{space 2} 11.54881{col 40}{space 1}   -0.41{col 49}{space 3}0.679{col 57}{space 4} -27.4273{col 70}{space 3} 17.85948
+{txt}{space 8}Sweden  {c |}{col 17}{res}{space 2} 12.52205{col 29}{space 2} 20.99131{col 40}{space 1}    0.60{col 49}{space 3}0.551{col 57}{space 4}-28.63495{col 70}{space 3} 53.67904
+{txt}{space 3}Switzerland  {c |}{col 17}{res}{space 2}-1.427355{col 29}{space 2} 33.01159{col 40}{space 1}   -0.04{col 49}{space 3}0.966{col 57}{space 4}-66.15213{col 70}{space 3} 63.29742
+{txt}{space 8}Taiwan  {c |}{col 17}{res}{space 2}-75.07456{col 29}{space 2} 19.55122{col 40}{space 1}   -3.84{col 49}{space 3}0.000{col 57}{space 4} -113.408{col 70}{space 3}-36.74111
+{txt}{space 6}Thailand  {c |}{col 17}{res}{space 2}-77.34831{col 29}{space 2} 50.15288{col 40}{space 1}   -1.54{col 49}{space 3}0.123{col 57}{space 4}-175.6815{col 70}{space 3} 20.98485
+{txt}United Kingdom  {c |}{col 17}{res}{space 2} 33.45322{col 29}{space 2} 9.877033{col 40}{space 1}    3.39{col 49}{space 3}0.001{col 57}{space 4} 14.08764{col 70}{space 3}  52.8188
+{txt}{space 1}United States  {c |}{col 17}{res}{space 2}        0{col 29}{txt}  (omitted)
+{space 15} {c |}
+{space 10}_cons {c |}{col 17}{res}{space 2} 764.7881{col 29}{space 2} 93.84725{col 40}{space 1}    8.15{col 49}{space 3}0.000{col 57}{space 4} 580.7848{col 70}{space 3} 948.7914
+{txt}{hline 16}{c BT}{hline 11}{hline 11}{hline 9}{hline 8}{hline 13}{hline 12}
+{res}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}C:\Users\wiemh\Downloads\Proj.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 5 Jun 2026, 09:09:45
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
